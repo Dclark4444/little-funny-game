@@ -1,0 +1,14 @@
+{
+  "map_data":  {
+    "height": 10,
+    "width": 10,
+    "forrest": 0.10,
+    "hill": 0.90,
+    "desert": 0.25,
+    "river": 0.25,
+    "contiguous_biomes": 0.10,
+    "congruence_max": 0.5,
+    "biome_max": 0.9,
+    "abstract_shape": 0
+  }
+}
