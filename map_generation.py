@@ -1,9 +1,10 @@
 import json, random
 from general_functions import *
 
-#globals
+# constants
 with open("data.json") as FILE:
     MAP_DATA = json.load(FILE)["map_data"]
+
 
 class biome:
     def __init__(self, b_type, richness, has_river = False):
@@ -31,18 +32,21 @@ class map:
         for biome in biome_modifiers.keys():
             if biome != "river":
                 modifier = biome_modifiers[biome]
-                if modifier >= 1:
-                    modifier = MAP_DATA["congruence_max"]
-                if MAP_DATA[biome] + modifier > MAP_DATA["biome_max"]:
+                if modifier > MAP_DATA["biome_max"]:
                     biome_totals[biome] = MAP_DATA["biome_max"] - random.random()
                 else:
-                    biome_totals[biome] = MAP_DATA[biome] + modifier - random.random()
+                    biome_totals[biome] = modifier - random.random()
 
         highest = list(biome_totals.keys())[0]
+        highest_at_max = []
         for total in biome_totals.keys():
             if biome_totals[total] > biome_totals[highest]:
                 highest = total
+            if biome_totals[total] == MAP_DATA["biome_max"]:
+                highest_at_max.append(biome_totals[total])
 
+        if len(highest_at_max) > 1:
+            return highest_at_max[random.randint(0, len(highest_at_max) - 1)]
         if biome_totals[total] <= 0:
             return "desert"
         else:
@@ -53,7 +57,7 @@ class map:
 
         if modifier >= 1:
             modifier = MAP_DATA["congruence_max"]
-        if random.random() <= MAP_DATA[b_type] + modifier:
+        if random.random() <= MAP_DATA["biomes"][b_type] + modifier:
             return True
         return False
 
@@ -68,11 +72,13 @@ class map:
                 y_with_mod = y + y_mod
 
                 if x_with_mod >= 0 and x_with_mod <= self.height - 1 and y_with_mod >= 0 and y_with_mod <= self.width - 1:
-                        biome = self.tiles[x_with_mod][y_with_mod]
-                        if biome.b_type != "desert" and biome.b_type != "beach":
-                            biome_modifiers[biome.b_type] += MAP_DATA["contiguous_biomes"]
-                        if biome.has_river:
-                            biome_modifiers["river"] += MAP_DATA["contiguous_biomes"]
+                    biome = self.tiles[x_with_mod][y_with_mod]
+                    if biome.b_type != "desert" and biome.b_type != "beach":
+                        biome_modifiers[biome.b_type] += MAP_DATA["contiguous_biomes"]
+                        if biome_modifiers[biome.b_type] >= MAP_DATA["congruence_max"]:
+                            biome_modifiers[biome.b_type] = MAP_DATA["congruence_max"]
+                    if biome.has_river:
+                        biome_modifiers["river"] += MAP_DATA["contiguous_biomes"]
 
         return biome_modifiers
 
@@ -82,7 +88,7 @@ class map:
                 if x == 0 or y == 0 or x == self.height - 1 or y == self.width - 1:
                     self.tiles[x][y] = biome("beach", 0, self.pick_single_biome("river"))
                 else:
-                    biome_modifiers = {"forrest": 0, "hill": 0, "river": 0}
+                    biome_modifiers = MAP_DATA["biomes"]
                     biome_modifiers = self.check_every_direction(x, y, biome_modifiers)
 
                     found_biome = self.pick_compare_biomes(biome_modifiers)
