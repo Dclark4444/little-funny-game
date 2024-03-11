@@ -20,17 +20,39 @@ class map:
         self.generate_map()
 
     def get_tile_shape(self):
-        if MAP_DATA["abstract_shape"] != 1:
+        if MAP_DATA["abstract_shape"] == 0:
             return [[biome("desert", 0) for _ in range(self.width)] for _ in range(self.height)]
         else:
-            total_tiles = self.height * self.width
-            shape = [[]]
-            return shape #NEED TO IMPLEMENT
+            shape = [[biome("water", 0) for _ in range(self.width)] for _ in range(self.height)]
+
+            for x in range(self.height):
+                for y in range(self.width):
+
+                    land_frequency = MAP_DATA["land_frequency"]
+
+                    for x_mod in range(-1, 2):
+                        for y_mod in range(-1, 2):
+
+                            x_with_mod = x + x_mod
+                            y_with_mod = y + y_mod
+
+                            if x_with_mod < 0 or x_with_mod >= self.width or y_with_mod < 0 or y_with_mod >= self.height:
+                                land_frequency -= MAP_DATA["contiguous_water"]
+                            elif shape[x_with_mod][y_with_mod].b_type == "water":
+                                land_frequency -= MAP_DATA["contiguous_water"]
+                            else:
+                                land_frequency -= MAP_DATA["island_frequency"]
+
+                    if random.random() > land_frequency:
+                        shape[x][y] = biome("desert", 0)
+
+            return shape
+
 
     def pick_compare_biomes(self, biome_modifiers):
         biome_totals = {}
         for biome in biome_modifiers.keys():
-            if biome != "river":
+            if biome not in MAP_DATA["noncongruent_biomes"]:
                 modifier = biome_modifiers[biome]
                 if modifier > MAP_DATA["biome_max"]:
                     biome_totals[biome] = MAP_DATA["biome_max"] - random.random()
@@ -55,7 +77,7 @@ class map:
 
     def pick_single_biome(self, b_type, modifier = 0):
 
-        if modifier >= 1:
+        if modifier >= MAP_DATA["congruence_max"]:
             modifier = MAP_DATA["congruence_max"]
         if random.random() <= MAP_DATA["biomes"][b_type] + modifier:
             return True
@@ -73,10 +95,9 @@ class map:
 
                 if x_with_mod >= 0 and x_with_mod <= self.height - 1 and y_with_mod >= 0 and y_with_mod <= self.width - 1:
                     biome = self.tiles[x_with_mod][y_with_mod]
-                    if biome.b_type != "desert" and biome.b_type != "beach":
-                        biome_modifiers[biome.b_type] += MAP_DATA["contiguous_biomes"]
-                        if biome_modifiers[biome.b_type] >= MAP_DATA["congruence_max"]:
-                            biome_modifiers[biome.b_type] = MAP_DATA["congruence_max"]
+                    biome_modifiers[biome.b_type] += MAP_DATA["contiguous_biomes"]
+                    if biome_modifiers[biome.b_type] >= MAP_DATA["congruence_max"]:
+                        biome_modifiers[biome.b_type] = MAP_DATA["congruence_max"]
                     if biome.has_river:
                         biome_modifiers["river"] += MAP_DATA["contiguous_biomes"]
 
@@ -85,9 +106,8 @@ class map:
     def generate_map(self):
         for x in range(self.height):
             for y in range(self.width):
-                if x == 0 or y == 0 or x == self.height - 1 or y == self.width - 1:
-                    self.tiles[x][y] = biome("beach", 0, self.pick_single_biome("river"))
-                else:
+
+                if self.tiles[x][y].b_type != "water":
                     biome_modifiers = MAP_DATA["biomes"]
                     biome_modifiers = self.check_every_direction(x, y, biome_modifiers)
 
