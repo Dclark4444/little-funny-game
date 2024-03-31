@@ -5,7 +5,6 @@ from general_functions import *
 with open("data.json") as FILE:
     MAP_DATA = json.load(FILE)["map_data"]
 
-
 class biome:
     def __init__(self, b_type, richness, has_river = False):
         self.b_type = b_type
@@ -136,3 +135,5 @@ class map:
             print(line_richness)
             print(line_has_river)
             print("-" * spacing)
+
+

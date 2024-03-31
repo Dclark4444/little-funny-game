@@ -13,5 +13,13 @@
     "land_frequency": 0.95,
     "island_frequency": 0.15,
     "contiguous_water": 0.05
+  },
+  "sprite_data":  {
+    "biomes": ["forrest", "hill","desert", "water", "river", "beach"],
+    "biome_sprites": {"forrest":  "forrest_hex.png", "hill":  "hill_hex.png","desert":  "desert_hex.png",
+                      "water":  "water_hex.png", "river":  ["river_hex_0.png", "river_hex_1.png",
+                      "river_hex_2.png", "river_hex_3.png", "river_hex_4.png", "river_hex_5.png"],
+                      "beach":  "beach_hex.png"}
   }
+
 }

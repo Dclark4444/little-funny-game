@@ -1,0 +1,40 @@
+hill      hill      water     water     water     hill      water     hill      water     hill      
+100       100       0         0         0         100       0         100       0         100       
+False     True      False     False     False     False     False     False     False     False     
+----------
+hill      water     hill      hill      desert    hill      hill      hill      hill      hill      
+100       0         100       100       100       100       100       100       100       100       
+True      False     True      True      True      True      True      True      True      True      
+----------
+water     hill      hill      hill      hill      desert    hill      desert    hill      hill      
+0         100       100       100       100       100       100       100       100       100       
+False     True      True      True      True      True      True      True      True      True      
+----------
+hill      hill      water     hill      desert    hill      desert    hill      hill      hill      
+100       100       0         100       100       100       100       100       100       100       
+True      True      False     True      True      True      True      True      True      True      
+----------
+hill      water     hill      hill      hill      hill      hill      hill      hill      hill      
+100       0         100       100       100       100       100       100       100       100       
+True      False     True      True      True      True      True      True      True      True      
+----------
+desert    hill      water     hill      water     hill      hill      desert    hill      hill      
+100       100       0         100       0         100       100       100       100       100       
+True      True      False     True      False     True      True      True      True      True      
+----------
+hill      water     hill      water     desert    desert    desert    hill      hill      hill      
+100       0         100       0         100       100       100       100       100       100       
+True      False     True      False     True      True      True      True      True      True      
+----------
+water     desert    desert    desert    water     desert    hill      hill      hill      hill      
+0         100       100       100       0         100       100       100       100       100       
+False     True      True      True      False     True      True      True      True      True      
+----------
+water     water     hill      hill      water     hill      hill      desert    water     water     
+0         0         100       100       0         100       100       100       0         0         
+False     False     True      True      False     True      True      True      False     False     
+----------
+hill      water     hill      water     hill      hill      water     hill      water     hill      
+100       0         100       0         100       100       0         100       0         100       
+True      False     True      False     True      True      False     True      False     True      
+----------
