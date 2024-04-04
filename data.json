@@ -1,7 +1,7 @@
 {
   "map_data":  {
-    "height": 10,
-    "width": 10,
+    "height": 20,
+    "width": 20,
     "biomes": {"forrest": 0.50, "hill": 0.50, "river": 0.25, "desert":  0, "beach": 0,
       "water": 0},
     "noncongruent_biomes": ["desert", "water", "river", "beach"],
@@ -11,8 +11,8 @@
     "biome_max": 0.8,
     "abstract_shape": 1,
     "land_frequency": 0.95,
-    "island_frequency": 0.15,
-    "contiguous_water": 0.05
+    "island_frequency": 0.2,
+    "contiguous_water": 0.1
   },
   "sprite_data":  {
     "biomes": ["forrest", "hill","desert", "water", "river", "beach"],

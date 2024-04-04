@@ -15,6 +15,8 @@ for biome in SPRITE_DATA["biome_sprites"].keys():
 class funny_game(Game):
     def __init__(self):
         super().__init__()
+        self.clock = pygame.time.Clock()
+        pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         self.SPRITES = {"blank": pygame.image.load("sprites/blank_hex.png")}
         for biome in SPRITE_DATA["biome_sprites"]:
             if type(SPRITE_DATA["biome_sprites"][biome]) == str:
@@ -48,8 +50,18 @@ class funny_game(Game):
 
     def game(self):
         self.screen.fill((128, 255, 255))
-        self.game_map.print_tiles()
         self.display_map_tiles(self.game_map.tiles)
+
+        running = True
+        while running:
+            self.clock.tick(60)
+            pressed_keys = pygame.key.get_pressed()
+
+            if pressed_keys[pygame.K_q] == pygame.KEYDOWN:
+                running = False
+
+        pygame.quit()
+        exit()
 
 
 if __name__ == "__main__":

@@ -36,13 +36,14 @@ class map:
                             y_with_mod = y + y_mod
 
                             if x_with_mod < 0 or x_with_mod >= self.width or y_with_mod < 0 or y_with_mod >= self.height:
-                                land_frequency -= MAP_DATA["contiguous_water"]
+                                land_frequency -= MAP_DATA["contiguous_water"] / 9
                             elif shape[x_with_mod][y_with_mod].b_type == "water":
-                                land_frequency -= MAP_DATA["contiguous_water"]
+                                land_frequency -= MAP_DATA["contiguous_water"] / 9
                             else:
-                                land_frequency -= MAP_DATA["island_frequency"]
+                                pass
+                            land_frequency -= MAP_DATA["island_frequency"] / 9
 
-                    if random.random() > land_frequency:
+                    if land_frequency >= random.random():
                         shape[x][y] = biome("desert", 0)
 
             return shape
