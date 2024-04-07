@@ -4,6 +4,8 @@
     "width": 20,
     "biomes": {"forrest": 0.50, "hill": 0.50, "river": 0.25, "desert":  0, "beach": 0,
       "water": 0},
+    "biome_richness": {"forrest": 0.70, "hill": 0.70, "river": 0.25, "desert":  0, "beach": 0,"water":  0.50},
+    "richness_range": 0.25,
     "noncongruent_biomes": ["desert", "water", "river", "beach"],
     "desert": 0.25,
     "contiguous_biomes": 0.30,
@@ -18,7 +20,7 @@
     "biomes": ["forrest", "hill","desert", "water", "river", "beach"],
     "biome_sprites": {"forrest":  "forrest_hex.png", "hill":  "hill_hex.png","desert":  "desert_hex.png",
                       "water":  "water_hex.png", "river":  ["river_hex_0.png", "river_hex_1.png",
-                      "river_hex_2.png", "river_hex_3.png", "river_hex_4.png", "river_hex_5.png"],
+                      "river_hex_2.png", "river_hex_3.png", "river_hex_4.png", "river_hex_5.png", "river_hex_6.png"],
                       "beach":  "beach_hex.png"}
   }
 

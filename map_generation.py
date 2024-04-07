@@ -83,8 +83,11 @@ class map:
             return True
         return False
 
-    def pick_richness(self, b_type, modifier=0):
-        return 100 #NEED TO IMPLEMENT
+    def pick_richness(self, b_type):
+        if MAP_DATA["biome_richness"][b_type] == 0:
+            return 0
+        start_richness = MAP_DATA["biome_richness"][b_type]
+        return start_richness + random.uniform(MAP_DATA["richness_range"] * -1, MAP_DATA["richness_range"])
 
     def check_every_direction(self, x, y, biome_modifiers):
         for x_mod in range(-1, 2):

@@ -23,7 +23,7 @@ def get_river_overlay(x_coord, y_coord, tiles):
                 tile_index += 1
 
     if tile_indexes_needed == []:
-        tile_indexes_needed = [0]
+        tile_indexes_needed = [6]
     return tile_indexes_needed
 
 
