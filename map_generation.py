@@ -99,7 +99,7 @@ class map:
                     if biome_modifiers[biome.b_type] >= MAP_DATA["congruence_max"]:
                         biome_modifiers[biome.b_type] = MAP_DATA["congruence_max"]
                     if biome.has_river:
-                        biome_modifiers["river"] += MAP_DATA["contiguous_biomes"]
+                        biome_modifiers["river"] += MAP_DATA["contiguous_biomes"] / 10000000
 
         return biome_modifiers
 

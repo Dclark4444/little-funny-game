@@ -48,6 +48,14 @@ class funny_game():
                                 (col_index * self.tile_width) + hex_offset,
                                 (row_index * self.tile_height * 0.75),
                                 self.SPRITES[tile.b_type])
+                if tile.has_river:
+                    river_indexes_needed = get_river_overlay(row_index, col_index, new_map_tiles)
+                    for river_index in river_indexes_needed:
+                        self.place_tile(
+                            (col_index * self.tile_width) + hex_offset,
+                            (row_index * self.tile_height * 0.75),
+                            self.SPRITES["river"][river_index])
+
 
     def game_loop(self):
         self.screen.fill((128, 255, 255))
