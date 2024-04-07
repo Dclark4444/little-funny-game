@@ -1,5 +1,4 @@
 import pygame
-from pygame_starter import Game
 import json, random
 from general_functions import *
 from map_generation import *
@@ -11,12 +10,13 @@ with open("data.json") as FILE:
 for biome in SPRITE_DATA["biome_sprites"].keys():
     assert biome in SPRITE_DATA["biomes"]
 
+pygame.init()
 
-class funny_game(Game):
+class funny_game():
     def __init__(self):
-        super().__init__()
         self.clock = pygame.time.Clock()
-        pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        pygame.display.set_caption("Funny Little Game")
         self.SPRITES = {"blank": pygame.image.load("sprites/blank_hex.png")}
         for biome in SPRITE_DATA["biome_sprites"]:
             if type(SPRITE_DATA["biome_sprites"][biome]) == str:
@@ -33,6 +33,7 @@ class funny_game(Game):
         self.offset_height = (self.SPRITES["blank"].get_size()[1] / 2)
 
         self.game_map = map()
+        self.game_loop()
 
     def place_tile(self, x, y, img):
         self.screen.blit(img, (x + self.offset_width, y + self.offset_height))
@@ -48,22 +49,23 @@ class funny_game(Game):
                                 (row_index * self.tile_height * 0.75),
                                 self.SPRITES[tile.b_type])
 
-    def game(self):
+    def game_loop(self):
         self.screen.fill((128, 255, 255))
         self.display_map_tiles(self.game_map.tiles)
 
         running = True
         while running:
-            self.clock.tick(60)
-            pressed_keys = pygame.key.get_pressed()
-
-            if pressed_keys[pygame.K_q] == pygame.KEYDOWN:
-                running = False
+            pygame.display.update()
+            self.clock.tick(1)
+            events = pygame.event.get()
+            for event in events:
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_q:
+                        running = False
 
         pygame.quit()
-        exit()
+        exit(0)
 
 
 if __name__ == "__main__":
     instance = funny_game()
-    instance.run()
